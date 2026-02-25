@@ -50,19 +50,16 @@
     </td>
     <td class='recent_topic_users'>
         <ul class="recent_view_participants">
-            {{#unless (eq other_senders_count 0)}}
-            <li class="recent_view_participant_item tippy-zulip-tooltip" data-tooltip-template-id="recent_view_participant_overflow_tooltip:{{conversation_key}}">
-                <span class="recent_view_participant_overflow">+{{other_senders_count}}</span>
-            </li>
-            <template id="recent_view_participant_overflow_tooltip:{{conversation_key}}">{{{other_sender_names_html}}}</template>
-            {{/unless}}
+            {{#if has_hidden_senders}}
+            <template id="recent_view_participant_overflow_tooltip:{{conversation_key}}">{{{hidden_sender_names_html}}}</template>
+            {{/if}}
             {{#each senders}}
                 {{#if this.is_muted}}
-                <li class="recent_view_participant_item participant_profile tippy-zulip-tooltip" data-tippy-content="{{t 'Muted user'}}" data-user-id="{{this.user_id}}">
+                <li class="recent_view_participant_item participant_profile tippy-zulip-tooltip {{#if (and @first ../has_hidden_senders)}}recent_view_participant_faded{{/if}}" {{#if (and @first ../has_hidden_senders)}}data-tooltip-template-id="recent_view_participant_overflow_tooltip:{{../conversation_key}}"{{else}}data-tippy-content="{{t 'Muted user'}}"{{/if}} data-user-id="{{this.user_id}}">
                     <span><i class="fa fa-user recent_view_participant_overflow"></i></span>
                 </li>
                 {{else}}
-                <li class="recent_view_participant_item participant_profile tippy-zulip-tooltip" data-tippy-content="{{this.full_name}}" data-user-id="{{this.user_id}}">
+                <li class="recent_view_participant_item participant_profile tippy-zulip-tooltip {{#if (and @first ../has_hidden_senders)}}recent_view_participant_faded{{/if}}" {{#if (and @first ../has_hidden_senders)}}data-tooltip-template-id="recent_view_participant_overflow_tooltip:{{../conversation_key}}"{{else}}data-tippy-content="{{this.full_name}}"{{/if}} data-user-id="{{this.user_id}}">
                     <img src="{{this.avatar_url_small}}" class="recent_view_participant_avatar" />
                 </li>
                 {{/if}}

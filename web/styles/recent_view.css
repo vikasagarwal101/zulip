@@ -373,6 +373,10 @@
         line-height: 1.5;
     }
 
+    .recent_view_participant_faded {
+        mask-image: linear-gradient(to right, hsl(0deg 0% 0%), transparent 60%);
+    }
+
     & tr {
         background-color: var(--color-background-recent-view-row);
 
