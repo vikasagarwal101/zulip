@@ -379,7 +379,7 @@
     }
 
     .recent_view_participant_faded {
-        mask-image: linear-gradient(to right, hsl(0deg 0% 0%), transparent 60%);
+        mask-image: linear-gradient(to right, hsl(0deg 0% 0%), transparent 80%);
     }
 
     & tr {
