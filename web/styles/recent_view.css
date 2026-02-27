@@ -560,7 +560,7 @@
         .recent-view-conversation-sort-header {
             /* Prevent hover pill highlight from extending into
                the adjacent unread sort column. */
-            margin-right: 0.333em; /* 5px at 15px/1em */;
+            margin-right: 0.333em; /* 5px at 15px/1em */
         }
 
         .recent-view-unread-sort-header {
