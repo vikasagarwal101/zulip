@@ -404,6 +404,7 @@
 
         & a {
             color: var(--color-recent-view-link-unread);
+            font-weight: 500;
         }
 
         /* Avoid annoying, confusing hover-state when scrolling on
