@@ -169,6 +169,20 @@
         font-size: 0.5333em;
     }
 
+    /* Mirror the typeahead pattern by applying idle gradients to the icon
+       pseudo-element, not the wrapper element. */
+    .user-circle-idle {
+        background: none;
+        -webkit-text-fill-color: inherit;
+    }
+
+    .user-circle-idle::before {
+        background: var(--gradient-user-circle-idle);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        border-radius: 50%;
+    }
+
     .user_sidebar_entry.with_avatar {
         .user-profile-picture-container {
             /* Establish positioning context for user circle. */
@@ -206,6 +220,10 @@
 
             &.user-circle-offline {
                 display: none;
+            }
+
+            &.user-circle-idle::before {
+                background: var(--gradient-user-circle-idle-avatar);
             }
         }
     }
