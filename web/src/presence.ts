@@ -68,17 +68,21 @@ export function clear_internal_data(): void {
 const BIG_REALM_COUNT = 250;
 
 export function get_status(user_id: number): PresenceStatus["status"] {
-    if (people.is_my_user_id(user_id)) {
-        if (user_settings.presence_enabled) {
-            // if the current user is sharing presence, they always see themselves as online.
-            return "active";
-        }
+    if (people.is_my_user_id(user_id) && !user_settings.presence_enabled) {
         // if the current user is not sharing presence, they always see themselves as offline.
         return "offline";
     }
+
     if (presence_info.has(user_id)) {
         return presence_info.get(user_id)!.status;
     }
+
+    if (people.is_my_user_id(user_id)) {
+        // We may not always have freshly populated presence_info for self on initial load.
+        // Keep the previous UX fallback in that case.
+        return "active";
+    }
+
     return "offline";
 }
 
