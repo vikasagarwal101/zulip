@@ -169,6 +169,19 @@
         font-size: 0.5333em;
     }
 
+    /* Move idle circle gradient onto ::before so the icon container can
+       have a solid background when needed. */
+    .user-circle-idle {
+        background: var(--color-background);
+    }
+
+    .user-circle-idle::before {
+        background: var(--gradient-user-circle-idle);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        border-radius: 50%;
+    }
+
     .user_sidebar_entry.with_avatar {
         .user-profile-picture-container {
             /* Establish positioning context for user circle. */
@@ -203,6 +216,10 @@
                a 1px border, especially at smaller font sizes. */
             border: 1.5px solid var(--color-background);
             border-radius: 50%;
+
+            &.user-circle-idle::before {
+                background: var(--gradient-user-circle-idle-avatar);
+            }
 
             &.user-circle-offline {
                 display: none;
