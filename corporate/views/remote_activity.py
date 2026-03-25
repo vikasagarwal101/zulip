@@ -281,5 +281,5 @@ def get_remote_server_activity(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "corporate/activity/activity.html",
-        context=dict(data=content, title=title, is_home=False),
+        context={"data": content, "title": title, "is_home": False},
     )
