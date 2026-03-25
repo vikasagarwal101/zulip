@@ -66,9 +66,9 @@ def get_plan_ledger(request: HttpRequest, plan_id: int) -> HttpResponse:
     return render(
         request,
         "corporate/activity/activity.html",
-        context={
-            "data": content,
-            "title": title,
-            "is_home": False,
-        },
+        context=dict(
+            data=content,
+            title=title,
+            is_home=False,
+        ),
     )
