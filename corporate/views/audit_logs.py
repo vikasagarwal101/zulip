@@ -94,9 +94,9 @@ def get_remote_server_logs(request: HttpRequest, *, uuid: PathOnly[str]) -> Http
     return render(
         request,
         "corporate/activity/activity.html",
-        context=dict(
-            data=content,
-            title=title,
-            is_home=False,
-        ),
+        context={
+            "data": content,
+            "title": title,
+            "is_home": False,
+        },
     )
