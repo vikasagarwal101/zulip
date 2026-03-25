@@ -327,7 +327,7 @@ class RemoteBillingAuthenticationTest(RemoteRealmBillingTestCase):
         self.add_mock_response()
         send_server_data_to_push_bouncer(consider_usage_statistics=False)
 
-        for i in range(2):
+        for _ in range(2):
             result = self.execute_remote_billing_authentication_flow(
                 desdemona, return_without_clicking_confirmation_link=True
             )
@@ -1330,7 +1330,7 @@ class LegacyServerLoginTest(RemoteServerTestCase):
         self.login("desdemona")
         desdemona = self.example_user("desdemona")
 
-        for i in range(2):
+        for _ in range(2):
             result = self.execute_remote_billing_authentication_flow(
                 desdemona.delivery_email,
                 desdemona.full_name,

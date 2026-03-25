@@ -271,6 +271,9 @@ test("get_status", ({override}) => {
     override(user_settings, "presence_enabled", true);
     assert.equal(presence.get_status(current_user.user_id), "active");
 
+    presence.presence_info.set(current_user.user_id, {status: "idle"});
+    assert.equal(presence.get_status(current_user.user_id), "idle");
+
     presence.presence_info.delete(zoe.user_id);
     assert.equal(presence.get_status(zoe.user_id), "offline");
 
