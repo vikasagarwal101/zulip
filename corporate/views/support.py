@@ -936,7 +936,7 @@ def remote_servers_support(
         uuid_to_search=uuid_to_search,
         hostname_to_search=hostname_to_search,
     )
-    remote_server_to_max_monthly_messages: dict[int, int | str] = dict()
+    remote_server_to_max_monthly_messages: dict[int, int | str] = {}
     server_support_data: dict[int, RemoteSupportData] = {}
     realm_support_data: dict[int, RemoteSupportData] = {}
     remote_realms: dict[int, list[RemoteRealm]] = {}
