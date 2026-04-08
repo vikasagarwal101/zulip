@@ -157,7 +157,7 @@ def get_chart_data_for_realm(
     try:
         realm = get_realm(realm_str)
     except Realm.DoesNotExist:
-        raise JsonableError(_("Invalid organization"))
+        raise JsonableError(_("Invalid organization")) from None
 
     return do_get_chart_data(
         request,
