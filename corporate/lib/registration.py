@@ -128,8 +128,8 @@ def check_spare_license_available_for_changing_guest_user_role(realm: Realm) -> 
 
     try:
         check_spare_licenses_available(realm, plan, extra_non_guests_count=1)
-    except LicenseLimitError:
+    except LicenseLimitError as e:
         error_message = _(
             "Your organization does not have enough Zulip licenses to change a guest user's role."
         )
-        raise JsonableError(error_message)
+        raise JsonableError(error_message) from e
