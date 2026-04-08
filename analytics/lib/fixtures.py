@@ -35,8 +35,7 @@ def generate_time_series_data(
     partial_sum -- If True, return partial sum of the series.
     random_seed -- Seed for random number generator.
     """
-    # Deterministic seeded RNG for test data only - not cryptographic
-    rng = Random(random_seed)
+    rng = Random(random_seed)  # noqa: S311
 
     if frequency == CountStat.HOUR:
         length = days * 24

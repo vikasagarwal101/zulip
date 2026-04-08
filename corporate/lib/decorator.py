@@ -110,7 +110,7 @@ def authenticated_remote_realm_management_endpoint(
             except RemoteRealm.DoesNotExist:
                 # This should be impossible - unless the RemoteRealm existed and somehow the row
                 # was deleted.
-                raise AssertionError from None
+                raise AssertionError
 
             # Using EXTERNAL_URI_SCHEME means we'll do https:// in production, which is
             # the sane default - while having http:// in development, which will allow
