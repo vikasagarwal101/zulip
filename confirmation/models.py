@@ -108,8 +108,8 @@ def get_object_from_key(
         confirmation = Confirmation.objects.get(
             confirmation_key=confirmation_key, type__in=confirmation_types
         )
-    except Confirmation.DoesNotExist:
-        raise ConfirmationKeyError(ConfirmationKeyError.DOES_NOT_EXIST)
+    except Confirmation.DoesNotExist as e:
+        raise ConfirmationKeyError(ConfirmationKeyError.DOES_NOT_EXIST) from e
 
     if confirmation.expiry_date is not None and timezone_now() > confirmation.expiry_date:
         raise ConfirmationKeyError(ConfirmationKeyError.EXPIRED)
