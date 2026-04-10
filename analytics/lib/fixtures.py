@@ -35,7 +35,7 @@ def generate_time_series_data(
     partial_sum -- If True, return partial sum of the series.
     random_seed -- Seed for random number generator.
     """
-    rng = Random(random_seed)  # noqa: S311
+    rng = Random(random_seed)
 
     if frequency == CountStat.HOUR:
         length = days * 24
