@@ -100,7 +100,7 @@ def authenticated_remote_realm_management_endpoint(
             if realm_uuid is None:
                 # This doesn't make sense - if get_remote_realm_and_user_from_session
                 # found an expired identity dict, it should have had a realm_uuid.
-                raise AssertionError
+                raise AssertionError from e
 
             assert server_uuid is not None, "identity_dict with realm_uuid must have server_uuid"
             assert uri_scheme is not None, "identity_dict with realm_uuid must have uri_scheme"
@@ -110,7 +110,7 @@ def authenticated_remote_realm_management_endpoint(
             except RemoteRealm.DoesNotExist:
                 # This should be impossible - unless the RemoteRealm existed and somehow the row
                 # was deleted.
-                raise AssertionError
+                raise AssertionError from None
 
             # Using EXTERNAL_URI_SCHEME means we'll do https:// in production, which is
             # the sane default - while having http:// in development, which will allow

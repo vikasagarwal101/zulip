@@ -53,7 +53,7 @@ class BillingSessionCommand(ZulipBaseCommand):
                     "There is no remote realm with uuid '{}'. Aborting.".format(
                         options["remote_realm_uuid"]
                     )
-                )
+                ) from None
         elif options["remote_server_uuid"]:
             remote_server_uuid = options["remote_server_uuid"]
             try:
@@ -64,7 +64,7 @@ class BillingSessionCommand(ZulipBaseCommand):
                     "There is no remote server with uuid '{}'. Aborting.".format(
                         options["remote_server_uuid"]
                     )
-                )
+                ) from None
 
         if realm is None and remote_realm is None and remote_server is None:
             raise CommandError(
