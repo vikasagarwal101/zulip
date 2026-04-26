@@ -8,7 +8,7 @@ import logging
 import os
 import platform
 import pwd
-import random
+import secrets
 import shlex
 import shutil
 import signal
@@ -51,7 +51,7 @@ def overwrite_symlink(src: str, dst: str) -> None:
         # Note: creating a temporary filename like this is not generally
         # secure.  It’s fine in this case because os.symlink refuses to
         # overwrite an existing target; we handle the error and try again.
-        tmp = os.path.join(dir, f".{base}.{random.randrange(1 << 40):010x}")
+        tmp = os.path.join(dir, f".{base}.{secrets.randbits(40):010x}")
         try:
             os.symlink(src, tmp)
         except FileExistsError:
