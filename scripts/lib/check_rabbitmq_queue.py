@@ -138,7 +138,7 @@ def check_other_queues(queue_counts_dict: dict[str, int]) -> list[dict[str, Any]
         elif count > WARN_COUNT_THRESHOLD_DEFAULT:
             results.append(dict(status=WARNING, name=queue, message=f"count warning: {count}"))
         else:
-            results.append(dict(status=OK, name=queue, message=""))
+            results.append({"status": OK, "name": queue, "message": ""})
 
     return results
 

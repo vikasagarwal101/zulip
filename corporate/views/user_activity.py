@@ -77,9 +77,9 @@ def get_user_activity(request: HttpRequest, user_profile_id: int) -> HttpRespons
     return render(
         request,
         "corporate/activity/activity.html",
-        context=dict(
-            data=content,
-            title=title,
-            is_home=False,
-        ),
+        context={
+            data: content,
+            title: title,
+            is_home: False,
+        },
     )
