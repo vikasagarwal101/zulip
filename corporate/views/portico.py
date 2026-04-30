@@ -371,7 +371,7 @@ def communities_view(request: HttpRequest) -> HttpResponse:
     ]
 
     # Remove org_types for which there are no open organizations.
-    org_types = dict()
+    org_types = {}
     for org_type in CATEGORIES_TO_OFFER:
         if Realm.ORG_TYPES[org_type]["id"] in unique_org_type_ids:
             org_types[org_type] = Realm.ORG_TYPES[org_type]

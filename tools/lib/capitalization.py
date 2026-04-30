@@ -313,7 +313,7 @@ def check_banned_words(text: str) -> list[str]:
                 or "realm_move" in lower_cased_text
             ):
                 continue
-            kwargs = dict(word=word, text=text, reason=reason)
+            kwargs = {"word": word, "text": text, "reason": reason}
             msg = "{word} found in '{text}'. {reason}".format(**kwargs)
             errors.append(msg)
 

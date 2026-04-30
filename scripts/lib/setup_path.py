@@ -18,7 +18,7 @@ def setup_path() -> None:
             )
         )
         activate_this = os.path.join(venv, "bin", "activate_this.py")
-        activate_locals = dict(__file__=activate_this)
+        activate_locals = {"__file__": activate_this}
         with open(activate_this) as f:
             exec(f.read(), activate_locals)  # noqa: S102
         # Check that the python version running this function

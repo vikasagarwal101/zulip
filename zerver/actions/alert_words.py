@@ -8,7 +8,7 @@ from zerver.tornado.django_api import send_event_on_commit
 
 
 def notify_alert_words(user_profile: UserProfile, words: Sequence[str]) -> None:
-    event = dict(type="alert_words", alert_words=words)
+    event = {"type": "alert_words", "alert_words": words}
     send_event_on_commit(user_profile.realm, event, [user_profile.id])
 
 

@@ -58,14 +58,14 @@ def send_bot_owner_update_events(
 
     # Since `bot_owner_id` is included in the user profile dict we need
     # to update the users dict with the new bot owner id
-    event = dict(
-        type="realm_user",
-        op="update",
-        person=dict(
-            user_id=user_profile.id,
-            bot_owner_id=bot_owner.id,
-        ),
-    )
+    event = {
+        "type": "realm_user",
+        "op": "update",
+        "person": {
+            "user_id": user_profile.id,
+            "bot_owner_id": bot_owner.id,
+        },
+    }
     send_event_on_commit(user_profile.realm, event, active_user_ids(user_profile.realm_id))
 
 
