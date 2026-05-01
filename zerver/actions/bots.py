@@ -197,14 +197,14 @@ def do_change_default_all_public_streams(
     )
 
     if user_profile.is_bot:
-        event = dict(
-            type="realm_bot",
-            op="update",
-            bot=dict(
-                user_id=user_profile.id,
-                default_all_public_streams=user_profile.default_all_public_streams,
-            ),
-        )
+        event = {
+            "type": "realm_bot",
+            "op": "update",
+            "bot": {
+                "user_id": user_profile.id,
+                "default_all_public_streams": user_profile.default_all_public_streams,
+            },
+        }
         send_event_on_commit(
             user_profile.realm,
             event,
