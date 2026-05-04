@@ -55,17 +55,17 @@ def make_table(
     if not has_row_class:
 
         def fix_row(row: Any) -> dict[str, Any]:
-            return dict(cells=row, row_class=None)
+            return {"cells": row, "row_class": None}
 
         rows = list(map(fix_row, rows))
 
-    data = dict(
-        title=title, cols=cols, rows=rows, header=header, totals=totals, title_link=title_link
-    )
+    data = {
+        title: title, cols: cols, rows: rows, header: header, totals: totals, title_link: title_link
+    }
 
     content = loader.render_to_string(
         "corporate/activity/activity_table.html",
-        dict(data=data),
+        data,
     )
 
     return content
@@ -118,7 +118,7 @@ def format_none_as_zero(value: int | None) -> int:
 def user_activity_link(link_text: str, user_profile_id: int) -> Markup:
     from corporate.views.user_activity import get_user_activity
 
-    url = reverse(get_user_activity, kwargs=dict(user_profile_id=user_profile_id))
+    url = reverse(get_user_activity, kwargs={"user_profile_id": user_profile_id})
     if link_text == "":
         return Markup('<a href="{url}"><i class="fa fa-user-circle"></i></a>').format(url=url)
     return Markup('<a href="{url}">{link_text}</a>').format(url=url, link_text=link_text)
@@ -127,14 +127,14 @@ def user_activity_link(link_text: str, user_profile_id: int) -> Markup:
 def realm_activity_link(realm_str: str) -> Markup:
     from corporate.views.realm_activity import get_realm_activity
 
-    url = reverse(get_realm_activity, kwargs=dict(realm_str=realm_str))
+    url = reverse(get_realm_activity, kwargs={"realm_str": realm_str})
     return Markup('<a href="{url}"><i class="fa fa-table"></i></a>').format(url=url)
 
 
 def realm_stats_link(realm_str: str) -> Markup:
     from analytics.views.stats import stats_for_realm
 
-    url = reverse(stats_for_realm, kwargs=dict(realm_str=realm_str))
+    url = reverse(stats_for_realm, kwargs={"realm_str": realm_str})
     return Markup('<a href="{url}"><i class="fa fa-pie-chart"></i></a>').format(url=url)
 
 
@@ -157,7 +157,7 @@ def realm_url_link(realm_str: str) -> Markup:
 def remote_installation_stats_link(server_id: int) -> Markup:
     from analytics.views.stats import stats_for_remote_installation
 
-    url = reverse(stats_for_remote_installation, kwargs=dict(remote_server_id=server_id))
+    url = reverse(stats_for_remote_installation, kwargs={"remote_server_id": server_id})
     return Markup('<a href="{url}"><i class="fa fa-pie-chart"></i></a>').format(url=url)
 
 
