@@ -80,22 +80,22 @@ def render_stats(
     )
 
     # Sync this with stats_params_schema in base_page_params.ts.
-    page_params = dict(
-        page_type="stats",
-        data_url_suffix=data_url_suffix,
-        upload_space_used=space_used,
-        guest_users=guest_users,
-        translation_data=get_language_translation_data(request_language),
-    )
+    page_params = {
+        "page_type": "stats",
+        "data_url_suffix": data_url_suffix,
+        "upload_space_used": space_used,
+        "guest_users": guest_users,
+        "translation_data": get_language_translation_data(request_language),
+    }
 
     return render(
         request,
         "analytics/stats.html",
-        context=dict(
-            target_name=title,
-            page_params=page_params,
-            analytics_ready=analytics_ready,
-        ),
+        {
+            "target_name": title,
+            "page_params": page_params,
+            "analytics_ready": analytics_ready,
+        },
     )
 
 
