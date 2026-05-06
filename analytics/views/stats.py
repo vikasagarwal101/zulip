@@ -91,11 +91,11 @@ def render_stats(
     return render(
         request,
         "analytics/stats.html",
-        context=dict(
-            target_name=title,
-            page_params=page_params,
-            analytics_ready=analytics_ready,
-        ),
+        context={
+            target_name: title,
+            page_params: page_params,
+            analytics_ready: analytics_ready,
+        },
     )
 
 
