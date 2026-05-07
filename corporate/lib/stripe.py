@@ -1550,7 +1550,7 @@ class BillingSession(ABC):
                         "Invoice Stripe customer ID does not match. Please attach invoice to correct customer in Stripe."
                     )
             except Exception as e:
-                raise SupportRequestError(str(e))
+                raise SupportRequestError(str(e)) from e
 
             if customer.stripe_customer_id is None:
                 # Note this is an exception to our normal support panel actions,
@@ -3594,7 +3594,7 @@ class BillingSession(ABC):
                     stripe_session_id=stripe_session_id, customer=customer
                 )
             except Session.DoesNotExist:
-                raise JsonableError(_("Session not found"))
+                raise JsonableError(_("Session not found")) from None
 
             if session.type == Session.CARD_UPDATE_FROM_BILLING_PAGE:
                 assert self.has_billing_access()
@@ -5549,9 +5549,9 @@ def get_price_per_license(
         price_per_license = price_map[tier][CustomerPlan.BILLING_SCHEDULES[billing_schedule]]
     except KeyError:
         if tier not in price_map:
-            raise InvalidTierError(tier)
+            raise InvalidTierError(tier) from None
         else:  # nocoverage
-            raise InvalidBillingScheduleError(billing_schedule)
+            raise InvalidBillingScheduleError(billing_schedule) from None
 
     return price_per_license
 

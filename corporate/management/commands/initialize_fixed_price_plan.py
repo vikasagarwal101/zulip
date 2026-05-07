@@ -75,14 +75,14 @@ class Command(BillingSessionCommand):
                 )
                 return
             except BillingError as e:
-                raise CommandError(e.msg)
+                raise CommandError(e.msg) from e
             except AssertionError as e:
-                raise CommandError(e)
+                raise CommandError(e) from e
         else:
             try:
                 billing_session.initialize_prepaid_fixed_price_plan(plan_tier, billing_cycle_anchor)
                 print("Done! Check support panel for customer to review active fixed-price plan.")
             except BillingError as e:
-                raise CommandError(e.msg)
+                raise CommandError(e.msg) from e
             except AssertionError as e:
-                raise CommandError(e)
+                raise CommandError(e) from e

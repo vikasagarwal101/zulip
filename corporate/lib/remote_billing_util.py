@@ -134,7 +134,7 @@ def get_remote_realm_and_user_from_session(
     except RemoteRealm.DoesNotExist:
         raise AssertionError(
             "The remote realm is missing despite being in the RemoteBillingIdentityDict"
-        )
+        ) from None
 
     if (
         remote_realm.registration_deactivated
@@ -154,7 +154,7 @@ def get_remote_realm_and_user_from_session(
             id=remote_billing_user_id, remote_realm=remote_realm
         )
     except RemoteRealmBillingUser.DoesNotExist:
-        raise AssertionError
+        raise AssertionError from None
 
     return remote_realm, remote_billing_user
 
@@ -174,7 +174,7 @@ def get_remote_server_and_user_from_session(
     try:
         remote_server = RemoteZulipServer.objects.get(uuid=remote_server_uuid)
     except RemoteZulipServer.DoesNotExist:
-        raise JsonableError(_("Invalid remote server."))
+        raise JsonableError(_("Invalid remote server.")) from None
 
     if remote_server.deactivated:
         raise JsonableError(_("Registration is deactivated"))
