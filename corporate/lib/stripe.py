@@ -5549,9 +5549,9 @@ def get_price_per_license(
         price_per_license = price_map[tier][CustomerPlan.BILLING_SCHEDULES[billing_schedule]]
     except KeyError:
         if tier not in price_map:
-            raise InvalidTierError(tier)
+            raise InvalidTierError(tier) from None
         else:  # nocoverage
-            raise InvalidBillingScheduleError(billing_schedule)
+            raise InvalidBillingScheduleError(billing_schedule) from None
 
     return price_per_license
 

@@ -77,7 +77,7 @@ class Command(BillingSessionCommand):
             except BillingError as e:
                 raise CommandError(e.msg)
             except AssertionError as e:
-                raise CommandError(e)
+                raise CommandError(e) from None
         else:
             try:
                 billing_session.initialize_prepaid_fixed_price_plan(plan_tier, billing_cycle_anchor)
@@ -85,4 +85,4 @@ class Command(BillingSessionCommand):
             except BillingError as e:
                 raise CommandError(e.msg)
             except AssertionError as e:
-                raise CommandError(e)
+                raise CommandError(e) from None
