@@ -173,8 +173,8 @@ def get_remote_server_and_user_from_session(
     remote_server_uuid = identity_dict["remote_server_uuid"]
     try:
         remote_server = RemoteZulipServer.objects.get(uuid=remote_server_uuid)
-    except RemoteZulipServer.DoesNotExist:
-        raise JsonableError(_("Invalid remote server."))
+    except RemoteZulipServer.DoesNotExist as err:
+        raise JsonableError(_("Invalid remote server.")) from err
 
     if remote_server.deactivated:
         raise JsonableError(_("Registration is deactivated"))

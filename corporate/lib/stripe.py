@@ -194,7 +194,7 @@ def unsign_seat_count(signed_seat_count: str, salt: str) -> int:
     try:
         return int(unsign_string(signed_seat_count, salt))
     except signing.BadSignature:
-        raise BillingError("tampered seat count")
+        raise BillingError("tampered seat count") from None
 
 
 def validate_licenses(
@@ -495,7 +495,7 @@ def catch_stripe_errors(func: Callable[ParamT, ReturnT]) -> Callable[ParamT, Ret
                     err.get("param"),
                 )
                 # TODO: Look into i18n for this
-                raise StripeCardError("card error", err.get("message"))
+                raise StripeCardError("card error", err.get("message")) from None
             billing_logger.error(
                 "Stripe error: %s %s %s %s",
                 e.http_status,
@@ -508,7 +508,7 @@ def catch_stripe_errors(func: Callable[ParamT, ReturnT]) -> Callable[ParamT, Ret
                     "stripe connection error",
                     _("Something went wrong. Please wait a few seconds and try again."),
                 )
-            raise BillingError("other stripe error")
+            raise BillingError("other stripe error") from None
 
     return wrapped
 
@@ -1231,7 +1231,7 @@ class BillingSession(ABC):
             if isinstance(e, stripe.CardError):
                 raise StripeCardError("card error", e.user_message)
             else:  # nocoverage
-                raise e
+                raise e from None
 
         assert stripe_invoice.id is not None
         return stripe_invoice.id
@@ -1550,7 +1550,7 @@ class BillingSession(ABC):
                         "Invoice Stripe customer ID does not match. Please attach invoice to correct customer in Stripe."
                     )
             except Exception as e:
-                raise SupportRequestError(str(e))
+                raise SupportRequestError(str(e)) from e
 
             if customer.stripe_customer_id is None:
                 # Note this is an exception to our normal support panel actions,
@@ -3593,8 +3593,8 @@ class BillingSession(ABC):
                 session = Session.objects.get(
                     stripe_session_id=stripe_session_id, customer=customer
                 )
-            except Session.DoesNotExist:
-                raise JsonableError(_("Session not found"))
+            except Session.DoesNotExist as err:
+                raise JsonableError(_("Session not found")) from err
 
             if session.type == Session.CARD_UPDATE_FROM_BILLING_PAGE:
                 assert self.has_billing_access()
@@ -5549,9 +5549,9 @@ def get_price_per_license(
         price_per_license = price_map[tier][CustomerPlan.BILLING_SCHEDULES[billing_schedule]]
     except KeyError:
         if tier not in price_map:
-            raise InvalidTierError(tier)
+            raise InvalidTierError(tier) from err
         else:  # nocoverage
-            raise InvalidBillingScheduleError(billing_schedule)
+            raise InvalidBillingScheduleError(billing_schedule) from err
 
     return price_per_license
 
